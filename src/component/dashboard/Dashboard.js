@@ -60,6 +60,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(allotedPackageDetails(currentUser?.user_id));
+    console.log("hello")
   }, [packageInfo]);
   if (loading) {
     return (
