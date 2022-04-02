@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function PackageList({ color, onClickEdit, data }) {
+export default function PackageList({ color, onClickEdit, data, onClickAdd }) {
   return (
     <>
       <div
@@ -19,8 +19,14 @@ export default function PackageList({ color, onClickEdit, data }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Membership List
+                Organisation List
               </h3>
+              <button
+                onClick={onClickAdd}
+                className="mr-4 p-2 bg-red-400 text-white rounded"
+              >
+                Add Organisation
+              </button>
             </div>
           </div>
         </div>
@@ -38,7 +44,7 @@ export default function PackageList({ color, onClickEdit, data }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Membership Name
+                  Organisation Name
                 </th>
                 <th
                   className={

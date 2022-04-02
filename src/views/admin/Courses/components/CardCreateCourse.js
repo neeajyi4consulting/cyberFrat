@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { getCategory } from "api";
 import { toast } from "react-toastify";
-import Select from "react-select";
 import { addCourse } from "api";
 
 // components
@@ -32,17 +31,11 @@ export default function CardCreateCourse({ color, handleClose, submitClose }) {
       return toast.error("Please Enter Course Name");
     if (!about || about === "") return toast.error("Please Enter About");
     if (!image || image === "") return toast.error("Please select image");
-    if (!author || author === "") return toast.error("Please Enter Author");
     if (!previewURL || previewURL === "" || !regex.test(previewURL))
       return toast.error("Please Enter Valid URL");
-    if (!sellingPrice || sellingPrice === "")
-      return toast.error("Please Enter Selling Price");
-    // if (!previewURL || previewURL === "")
-    //   return toast.error("Please Enter URL");
 
     const data = new FormData();
     data.append("course_title", courseTitle);
-    // data.append("category_id", categoryID);
     data.append("about", about);
     data.append("author", author);
     data.append("course_file", image);
@@ -70,7 +63,7 @@ export default function CardCreateCourse({ color, handleClose, submitClose }) {
 
   const fetchCategory = async () => {
     const { data } = await getCategory();
-    await setCategoryData(data?.data);
+    setCategoryData(data?.data);
     console.log(categoryData);
   };
   useEffect(() => {
@@ -114,7 +107,7 @@ export default function CardCreateCourse({ color, handleClose, submitClose }) {
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Author<span className="text-red-500">*</span>
+                  Author
                 </label>
                 <input
                   type="text"
@@ -131,7 +124,7 @@ export default function CardCreateCourse({ color, handleClose, submitClose }) {
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Selling Price<span className="text-red-500">*</span>
+                  Selling Price
                 </label>
                 <input
                   type="number"

@@ -1,78 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-import Select from "react-select";
-import { getCourse } from "api";
-import { addPackage } from "api";
+import { addUser } from "api";
 
-export default function AddPackage({ color, submitClose, handleClose }) {
-  const [name, setName] = useState("");
-  const [about, setAbout] = useState("");
-  const [image, setImage] = useState();
-  const [courses, setCourses] = useState([]);
-  const [courseList, setCourseList] = useState([]);
-  const [price, setPrice] = useState("");
+export default function CreateBulkUser({ color, handleClose, submitClose }) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleImage = (e) => {
-    if (!e.target.files[0]) return;
-    setImage(e.target.files[0]);
-  };
-
-  const fetchCourse = async () => {
-    try {
-      const response = await getCourse();
-      console.log("couses", response.data?.data);
-      setCourses(response.data?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleAddPackage = async (e) => {
+  const handleAddUser = async (e) => {
     e.preventDefault();
 
-    if (!name || name === "") return toast.error("Please Enter Category Name");
-    // if (!about || about === "") return toast.error("Please Enter About");
-    if (!image || image === "") return toast.error("Please Select Image");
-    const data = new FormData();
-    console.log(data);
-    data.append("name", name);
-    data.append("about", about);
-    data.append("price", price);
-    data.append("image", image);
-    data.append("course", [courseList]);
-    // data.append("payment_link", paymentURL);
+    if (!firstName || firstName === "") return toast.error("Please Enter Name");
+    if (!email || email === "") return toast.error("Please Enter Email");
+    if (!password || password === "" || password.length < 8)
+      return toast.error("Please Enter Strong Password");
 
-    addPackage(data)
+    const data = new FormData();
+    data.append("first_name", firstName);
+    data.append("last_name", lastName);
+    data.append("email", email);
+    data.append("phone", phone);
+    data.append("password", password);
+    data.append("user_role", 3);
+
+    addUser(data)
       .then(function (response) {
         if (response.data?.status === true) {
-          toast.success("Successfully Added Organisation");
-          console.log(response);
-          setName("");
-          setAbout("");
-          setPrice("");
-          setCourseList([]);
-          setImage();
+          console.log("added user successfully");
+          toast.success("Successfully Added User");
           submitClose(submitClose);
+          console.log(response);
+          window.location.reload();
         } else {
           toast.error(response.data?.message);
           console.log(response);
         }
       })
       .catch((err) => {
-        console.log("Error in add Organisation", err.response);
+        console.log("error in add user", err.response);
+        toast.error("Unable to Add User");
       });
   };
-
-  const onChangeInput = (value) => {
-    console.log(value);
-    const item = value.map((item) => item.id);
-    setCourseList(item);
-  };
-
-  useEffect(() => {
-    fetchCourse();
-  }, []);
 
   return (
     <>
@@ -85,116 +56,102 @@ export default function AddPackage({ color, submitClose, handleClose }) {
         <div className="flex-auto px-4 lg:px-5 py-10 pt-0">
           <form>
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Create Organisation
+              Create Bulk Users / Student
             </h6>
-
-            <div className="w-full  px-4">
-              <div className="relative w-full mb-3">
-                <label
-                  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Organisation Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Write Category Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                />
-              </div>
-            </div>
-            <div className="w-full  px-4">
-              <div className="relative w-full mb-3">
-                <label
-                  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Organisation Price
-                </label>
-                <input
-                  type="text"
-                  placeholder="Organisation Price"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                />
-              </div>
-            </div>
             {/* <div className="w-full  px-4">
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Payment Link
+                  First Name<span className="text-red-500">*</span>
                 </label>
                 <input
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   type="text"
-                  placeholder="Payment url"
-                  value={paymentURL}
-                  onChange={(e) => setPaymentURL(e.target.value)}
+                  placeholder="First Name"
                   className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 />
               </div>
-            </div> */}
+            </div>
             <div className="w-full  px-4">
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  About
+                  Last Name
                 </label>
                 <input
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   type="text"
-                  placeholder="Write About Organisation"
-                  value={about}
-                  onChange={(e) => setAbout(e.target.value)}
+                  placeholder="Last Name"
                   className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 />
               </div>
             </div>
             <div className="w-full  px-4">
               <div className="relative w-full mb-3">
-                <Select
+                <label
+                  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Email Address<span className="text-red-500">*</span>
+                </label>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  placeholder="Email"
                   className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  getOptionLabel={(option) => option.course_title}
-                  getOptionValue={(option) => option.id}
-                  placeholder={"Select Organisation Courses"}
-                  isMulti
-                  options={courses}
-                  onChange={(value) => onChangeInput(value)}
                 />
               </div>
             </div>
-
-            <div className=" w-full px-4">
+            <div className="w-full  px-4">
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Organisation Image
+                  Phone No.
                 </label>
                 <input
-                  type="file"
-                  accept="image/*"
-                  // value={image}
-                  onChange={handleImage}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  type="number"
+                  placeholder="Phone No."
+                  className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                />
+              </div>
+            </div>
+            <div className="w-full  px-4">
+              <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Password<span className="text-red-500">*</span>
+                </label>
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  type="password"
+                  placeholder="Password"
                   className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 />
               </div>
             </div>
 
-            <div className="w-full flex mt-5 lg:w-12/12 justify-between items-center px-4">
+            <div className="w-full flex mt-5 lg:w-12/12 justify-center items-center px-4">
               <button
                 className="bg-lightBlue-500 block w-full h-10  text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                 type="button"
-                onClick={handleAddPackage}
+                // onClick={handleAddUser}
               >
-                Create Organisation
+                Create User
               </button>
               <button
                 className="bg-red-500 block w-full  h-10 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
@@ -203,7 +160,15 @@ export default function AddPackage({ color, submitClose, handleClose }) {
               >
                 Cancel
               </button>
-            </div>
+            </div> */}
+            Coming soon
+            <button
+              className="bg-red-500 block w-20  h-10 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={handleClose}
+            >
+              Go Back
+            </button>
           </form>
         </div>
       </div>
@@ -211,10 +176,10 @@ export default function AddPackage({ color, submitClose, handleClose }) {
   );
 }
 
-AddPackage.defaultProps = {
+CreateBulkUser.defaultProps = {
   color: "light",
 };
 
-AddPackage.propTypes = {
+CreateBulkUser.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

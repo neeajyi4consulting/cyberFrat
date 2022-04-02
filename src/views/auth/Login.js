@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { loginAction } from "redux/actions/authActions";
+import logo from "../../assets/img/culsightLogo(b&w)-01.svg";
 
 export default function Login() {
   // const history = useHistory();
   // const { login, currentUser, loading } = useAuth();
-  const [email, setEmail] = useState("test@gmail.com");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
@@ -30,10 +31,7 @@ export default function Login() {
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
               <div className="rounded-t mb-0 px-6 py-6">
                 <div className="flex items-center justify-center text-center  mb-3">
-                  <img
-                    alt=""
-                    src="https://secureservercdn.net/160.153.138.219/259.f92.myftpupload.com/wp-content/uploads/2021/04/Cyber-Frat-Logo-1-1.png"
-                  />
+                  <img alt="" src={logo} style={{ height: 100 }} />
                 </div>
                 {/* <div className="btn-wrapper text-center">
                   <button

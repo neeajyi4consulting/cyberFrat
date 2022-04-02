@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { logout } from "../../redux/actions/authActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import logo from "../../assets/img/culsightLogo(b&w)-01.svg";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -27,10 +28,7 @@ export default function Sidebar() {
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-xl uppercase font-bold p-4 px-0"
             to="/"
           >
-            <img
-              alt=""
-              src="https://secureservercdn.net/160.153.138.219/259.f92.myftpupload.com/wp-content/uploads/2021/04/Cyber-Frat-Logo-1-1.png"
-            />
+            <img alt="" src={logo} style={{ height: "95px" }} />
           </Link>
           {/* User */}
 
@@ -64,7 +62,7 @@ export default function Sidebar() {
               </div>
             </div>
             {/* Form */}
-            <form className="mt-6 mb-4 md:hidden">
+            <form className="mt-6 mb-4 hidden">
               <div className="mb-3 pt-0">
                 <input
                   type="text"
@@ -228,21 +226,22 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/membership") !== -1
+                    (window.location.href.indexOf("/admin/organisation") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/membership"
+                  to="/admin/organisation"
                 >
                   <i
                     className={
                       "fas fa-upload mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/membership") !== -1
+                      (window.location.href.indexOf("/admin/organisation") !==
+                      -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Membership
+                  Organisation
                 </Link>
               </li>
             </ul>

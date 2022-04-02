@@ -136,7 +136,7 @@ export default function EditPackage({
         <div className="flex-auto px-4 lg:px-5 py-10 pt-0">
           <form>
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Edit Membership
+              Edit Organisation
             </h6>
 
             <div className="w-full  px-4">
@@ -145,7 +145,7 @@ export default function EditPackage({
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Membership Name<span className="text-red-500">*</span>
+                  Organisation Name<span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -163,7 +163,7 @@ export default function EditPackage({
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Membership Price<span className="text-red-500">*</span>
+                  Organisation Price<span className="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -229,7 +229,7 @@ export default function EditPackage({
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Membership Image
+                  Organisation Image
                 </label>
                 <input
                   type="file"
@@ -246,7 +246,7 @@ export default function EditPackage({
                 type="button"
                 onClick={handleEditPackage}
               >
-                Edit
+                update
               </button>
               <button
                 className="bg-red-500 block w-full  h-10 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"

@@ -14,6 +14,7 @@ export default function UserListCard({
   data,
   onClickAssign,
   onClickAdd,
+  onClickBulk,
 }) {
   const [toggleCoursesList, setToggleCoursesList] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -208,12 +209,20 @@ export default function UserListCard({
               >
                 User / Student List
               </h3>
-              <button
-                onClick={onClickAdd}
-                className="mr-4 p-2 bg-red-400 text-white rounded"
-              >
-                Add User
-              </button>
+              <div>
+                {/* <button
+                  onClick={onClickBulk}
+                  className="mr-4 p-2 bg-red-400 text-white rounded"
+                >
+                  Add Bulk User
+                </button> */}
+                <button
+                  onClick={onClickAdd}
+                  className="mr-4 p-2 bg-red-400 text-white rounded"
+                >
+                  Add User
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -273,7 +282,7 @@ export default function UserListCard({
                 >
                   Actions
                 </th>
-                <th
+                {/* <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
                     (color === "light"
@@ -282,7 +291,7 @@ export default function UserListCard({
                   }
                 >
                   Alloted Courses
-                </th>
+                </th> */}
 
                 <th
                   className={
@@ -367,17 +376,14 @@ export default function UserListCard({
                       </svg>
                     </div>
                   </td>
-                  <td>
+                  {/* <td>
                     <button
-                      className="bg-red-400 text-white rounded"
+                      className="bg-red-400 text-white rounded text-xs p-2"
                       onClick={() => setCourseList(item?.id)}
                     >
                       View StandAlone Course
                     </button>
-                    {/* {!item?.package_alloted.length <= 0
-                      ? item?.package_alloted[0]?.package_name?.course
-                      : "No Individual Course Alloted"} */}
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

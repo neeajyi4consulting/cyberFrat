@@ -49,7 +49,7 @@ export default function Admin() {
             <Route path="/admin/banner" exact component={Banner} />
             {/* <Route path="/admin/services" exact component={Services} /> */}
             <Route path="/admin/event" exact component={Event} />
-            <Route path="/admin/membership" exact component={Package} />
+            <Route path="/admin/organisation" exact component={Package} />
             <Route path="/admin/uploadCourse" exact component={UploadCourse} />
             <Route path="/admin/user" exact component={CreateUser} />
 

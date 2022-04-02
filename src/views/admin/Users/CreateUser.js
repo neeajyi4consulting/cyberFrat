@@ -8,9 +8,11 @@ import EditUser from "./components/EditUser";
 import { showPackage } from "api";
 import { allotPackage } from "api";
 import { useLocation } from "react-router";
+import CreateBulkUser from "./components/CreateBulkUser";
 
 export default function CreateUser() {
   const [data, setData] = useState([]);
+  const [createBulk, setCreateBulk] = useState(false);
   const [edit, setEdit] = useState(false);
   const [add, setAdd] = useState(false);
   const [userData, setUserData] = useState([]);
@@ -167,6 +169,11 @@ export default function CreateUser() {
               handleClose={() => setEdit(false)}
               userData={userData}
             />
+          ) : createBulk ? (
+            <CreateBulkUser
+              handleClose={() => setCreateBulk(false)}
+              submitClose={() => setCreateBulk(false)}
+            />
           ) : (
             <UserListCard
               data={data}
@@ -174,6 +181,7 @@ export default function CreateUser() {
               onClickEdit={onClickEdit}
               onClickAssign={handleAssignCourse}
               onClickAdd={() => setAdd(true)}
+              onClickBulk={() => setCreateBulk(true)}
             />
           )}
         </div>

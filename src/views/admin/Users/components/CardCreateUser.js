@@ -15,7 +15,6 @@ export default function CardCreateUser({ color, handleClose, submitClose }) {
 
     if (!firstName || firstName === "") return toast.error("Please Enter Name");
     if (!email || email === "") return toast.error("Please Enter Email");
-    if (!phone || phone === "") return toast.error("Please Enter Phone");
     if (!password || password === "" || password.length < 8)
       return toast.error("Please Enter Strong Password");
 
@@ -117,7 +116,7 @@ export default function CardCreateUser({ color, handleClose, submitClose }) {
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Phone No.<span className="text-red-500">*</span>
+                  Phone No.
                 </label>
                 <input
                   value={phone}

@@ -93,7 +93,7 @@ export default function Package() {
               data={data}
               onClickRemove={handleDeletePackage}
               onClickEdit={onClickEdit}
-              // onClickAdd={() => setAdd(true)}
+              onClickAdd={() => setAdd(true)}
             />
           )}
 
